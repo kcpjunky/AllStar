@@ -100,6 +100,7 @@ define(['chikuwa', 'lodash', 'master/base'], function ($, _, base) {
 					$.tag('.ranking-box').cls(rank)
 						.tag('.ranking-rank').text(user.rank).gat()
 						.tag('.ranking-user').text(user.name).gat()
+						.tag('.ranking-correct').text(user.count).gat()
 						.tag('.ranking-time').text(user.time).gat()
 					);
 				ranking.pop();

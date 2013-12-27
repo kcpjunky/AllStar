@@ -36,7 +36,6 @@ exports.register = function (connectionId, data) {
 		userList.push(user);
 		console.log(user);
 	}
-
 	return user;
 };
 
@@ -165,9 +164,9 @@ function allRankingSort(cluster) {
 /**
  * get All Ranking
  */
-function getAllRanking() {
+function getAllRanking(list) {
 	var cluster = {};
-	_.each(userList, function (user) {
+	_.each(list, function (user) {
 		var answer = user.answerList;
 		var count = 0;
 		var timeCount = 0;
@@ -188,8 +187,15 @@ function getAllRanking() {
 		});
 	});
 	var result = allRankingSort(cluster);
+
+	result = _.map(result, function(user, index) {
+		user.rank = index + 1;
+		return user;
+	});
 	return result;
 }
+
+exports.getAllRanking = getAllRanking;
 
 /**
  * get all data
@@ -200,7 +206,7 @@ function getAllData(state) {
 	switch (states[1]) {
 	case 'ranking':
 		data = {
-			ranking: getAllRanking(),
+			ranking: getAllRanking(userList),
 			border: states[2]
 		};
 		break;
