@@ -96,13 +96,17 @@ define(['chikuwa', 'lodash', 'master/base'], function ($, _, base) {
 			} else {
 				var user = ranking[--offset];
 				var rank = user.rank <= 5 ? 'large' : '';
-				content.prepend(
-					$.tag('.ranking-box').cls(rank)
-						.tag('.ranking-rank').text(user.rank).gat()
-						.tag('.ranking-user').text(user.name).gat()
-						.tag('.ranking-correct').text(user.count).gat()
-						.tag('.ranking-time').text(user.time).gat()
-					);
+				var cont = $.tag('.ranking-box').cls(rank)
+							.tag('.ranking-rank').text(user.rank).gat()
+							.tag('.ranking-user').text(user.name).gat();
+
+				if (user.count) {
+					cont.tag('.ranking-count').text(user.count).gat();
+				}
+
+				cont.tag('.ranking-time').text(user.time).gat();
+
+				content.prepend(cont);
 				ranking.pop();
 				setTimeout(arguments.callee, interval);
 			}
